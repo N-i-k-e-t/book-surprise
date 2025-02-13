@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #b2fab4, #69f0ae); /* Green gradient */
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #login-form {
+            background: rgba(255, 255, 255, 0.3); /* Lighter background */
+            padding: 30px 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 10;
+            width: 90%; /* Responsive width */
+            max-width: 400px; /* Maximum width */
+        }
+
+        label {
+            font-size: 18px; /* Slightly smaller font */
+            color: #333; /* Darker text for better contrast */
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block; /* Labels on their own line */
+        }
+
+        input {
+            width: 100%;
+            padding: 12px; /* Slightly smaller padding */
+            margin: 8px 0; /* Adjusted margin */
+            border: none;
+            border-radius: 12px;
+            font-size: 16px; /* Slightly smaller font */
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8); /* Slightly more opaque */
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.95); /* Even more opaque on focus */
+            outline: none;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.7); /* Green focus shadow */
+        }
+
+        button {
+            background: #4CAF50; /* Green button */
+            color: white;
+            border: none;
+            padding: 10px 20px; /* Slightly smaller padding */
+            font-size: 18px; /* Slightly smaller font */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 12px; /* Adjusted margin */
+            width: 100%; /* Full width on smaller screens */
+        }
+
+        button:hover {
+            background: #388e3c; /* Darker green on hover */
+            transform: scale(1.05); /* Slightly smaller scale */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Falling emoji animation */
+        .falling-emoji {
+            position: absolute;
+            font-size: 2em;
+            top: -50px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(100vh); }
+        }
+
+        /* Media Query for Larger Screens */
+        @media (min-width: 768px) {
+            #login-form {
+                padding: 30px 40px; /* Restore original padding */
+            }
+
+            label {
+                font-size: 20px; /* Restore original font size */
+            }
+
+            input {
+                padding: 15px;
+                font-size: 18px;
+            }
+
+            button {
+                padding: 12px 25px;
+                font-size: 20px;
+                width: auto; /* Let button size naturally */
+            }
+        }
+
+        /* Fun Emojis */
+        .emoji-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr); /* 3 columns */
+          gap: 10px; /* Spacing between emojis */
+          justify-items: center;
+          align-items: center;
+          margin-top: 20px;
+        }
+        .emoji-grid > div {
+            font-size: 1.5em; /* Adjust emoji size */
+        }
+    </style>
+</head>
+<body>
+    <form id="login-form">
+        <label for="code">Enter Your Name, Friend:</label>
+        <input type="text" id="code" name="code" placeholder="Your Name">
+        <button id="submit-btn">Let's Go!</button>
+    </form>
+    <div id="result"></div>
+
+    <div class="emoji-grid">
+        <div>😂</div>
+        <div>🤣</div>
+        <div>🤪</div>
+        <div>😎</div>
+        <div>😉</div>
+        <div>😹</div>
+    </div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const codeInput = document.getElementById('code');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultDiv = document.getElementById('result');
+
+        const secretCode = 'Pragati'; // Clear secret code
+        const nextPageUrl = 'main.html';
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userInput = codeInput.value.trim();
+            if (userInput === secretCode) {
+                resultDiv.textContent = 'Access Granted, Friend!'; // Friendlier message
+                window.location.href = nextPageUrl;
+            } else {
+                resultDiv.textContent = 'Nope, not you! Try again, buddy.'; // Friendlier rejection
+            }
+        });
+    </script>
+</body>
+</html>

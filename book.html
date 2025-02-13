@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message by Me </title>
+     <style>
+      * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background-image: radial-gradient(
+      circle farthest-corner at 50% 50%,
+      hsl(187 20% 88%) 30%,
+      hsl(149 20% 94%) 100%
+  );
+}
+
+.book {
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: 42cqmin; /* Increased width */
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition: translate 1s;
+  translate: calc(min(var(--c), 1) * 50%) 0%;
+  rotate: 1 0 0 30deg;
+}
+
+.page {
+  --thickness: 4;
+  flex: none;
+  display: flex;
+  width: 100%;
+  font-size: 2.2cqmin; /* Slightly increased font size */
+  pointer-events: all;
+  user-select: none;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s,
+      rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+  translate: calc(var(--i) * -100%) 0px 0px;
+  transform: translateZ(calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * 0.23cqmin)));
+  rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+}
+
+.front,
+.back {
+  position: relative;
+  flex: none;
+  width: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background-color: #fff;
+  translate: 0px;
+}
+
+.back {
+  translate: -100% 0;
+  rotate: 0 1 0 180deg;
+}
+
+.book {
+  counter-reset: page -1;
+}
+
+.book a {
+  color: inherit;
+}
+
+.page {
+  box-shadow: 0em 0.5em 1em -0.2em #00000020;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  padding: 2em;
+  border: 1px solid #0002;
+}
+
+.front:has(img),
+.back:has(img) {
+  padding: 0;
+}
+
+.front img,
+.back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.front::after,
+.back::after {
+  position: absolute;
+  bottom: 1em;
+  counter-increment: page;
+  content: counter(page) ".";
+  font-size: 0.8em;
+}
+
+.cover::after {
+  content: "";
+}
+
+.front::after {
+  right: 1em;
+}
+
+.front {
+  background: linear-gradient(to left, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.1em 0.5em 0.5em 0.1em;
+}
+
+.back::after {
+  left: 1em;
+}
+
+.back {
+  background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.5em 0.1em 0.1em 0.5em;
+}
+
+.cover {
+  background: radial-gradient(
+          circle farthest-corner at 80% 20%,
+          hsl(150 80% 20% / 0.3) 0%,
+          hsl(170 60% 10% / 0.1) 100%
+      ),
+      hsl(231, 32%, 29%) url("./cover.jpg") 50% / cover;
+  color: hsl(0, 100%, 30%); /* Dark red text color for cover page */
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1px;
+  color: hsl(0, 100%, 30%); /* Dark red heading color */
+}
+
+p {
+  margin-top: 1px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: hsl(0, 100%, 30%); /* Dark red text color for paragraphs */
+}
+
+.front,
+.back {
+  padding: 1.5em;
+  color: hsl(0, 100%, 30%); /* Dark red text color for front and back pages */
+}
+
+.book {
+  width: 40cqmin; /* Slightly increased width */
+}
+
+.page {
+  font-size: 2cqmin; /* Slightly increased font size */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5em;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background: linear-gradient(to right, #fcc7df, #b7e1ff, #fbd0ff);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Emoji Animation */
+.emoji {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0;
+  animation: floatEmojis 6s ease-in-out infinite;
+}
+
+@keyframes floatEmojis {
+  0% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(20deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+}
+
+/* Add random timing for each emoji */
+.emoji:nth-child(1) {
+  animation-delay: 0s;
+  left: 10%;
+}
+.emoji:nth-child(2) {
+  animation-delay: 1s;
+  left: 20%;
+}
+.emoji:nth-child(3) {
+  animation-delay: 2s;
+  left: 30%;
+}
+.emoji:nth-child(4) {
+  animation-delay: 3s;
+  left: 40%;
+}
+.emoji:nth-child(5) {
+  animation-delay: 4s;
+  left: 50%;
+}
+.emoji:nth-child(6) {
+  animation-delay: 5s;
+  left: 60%;
+}
+.emoji:nth-child(7) {
+  animation-delay: 6s;
+  left: 70%;
+}
+.emoji:nth-child(8) {
+  animation-delay: 7s;
+  left: 80%;
+}
+.emoji:nth-child(9) {
+  animation-delay: 8s;
+  left: 90%;
+}
+
+
+     </style>
+  </head>
+  <body>
+    <div class="book">
+    <!-- Page 1 -->
+<div class="page">
+    <div class="front cover">
+        <h1 style="color: rgb(255, 255, 255); text-shadow: 5px 2px 5px rgb(0, 0, 0);">
+            Book For Mysteries-Solver Spectacles Catty! 👓🐱☔️
+        </h1>
+        <p style="color: rgb(255, 255, 255); text-shadow: 5px 2px 5px rgb(0, 0, 0);">
+            2025 Edition: Warning: May Cause Uncontrollable Giggles🐱
+        </p>
+    </div>
+    <div class="back">
+        <h2>Let's Get One Thing Straight... (I'm Talking About My Cat's Tail, Obviously)</h2>
+        <p>I tried to write a serious message. My cat walked across the keyboard. This is the result.</p>
+        <p>You're like a purrfect rainy day: cozy, comforting, and makes me want to curl up with a good book (preferably a murder mystery, of course).</p>
+        <p>Your glasses are like tiny windows to your brilliant, beautiful, slightly-obsessed-with-fictional-detectives soul.</p>
+        <p>This book is dedicated to your laugh. It's like a cat's purr, a rainstorm, and a perfectly solved mystery all rolled into one glorious sound.</p>
+        <p>(P.S. If you find any typos, blame the cat. He's *definitely* plotting something.)</p>
+    </div>
+</div>
+
+<!-- Page 2 -->
+<div class="page">
+    <div class="front">
+        <h2>From "Who's That?" to "OMG, She's My Spirit Animal!"</h2>
+        <p>Remember when we first met? I thought, "She's probably one of those people who *doesn't* talk to their cats." I was *so* wrong.</p>
+        <p>You're delightfully bonkers. Like a cat chasing a laser pointer in a library full of murder mystery novels. Pure chaos, but in the best way.</p>
+        <p>Your glasses give you +10 to solving fictional crimes, +5 to attracting stray cats, and +100 to making me snort-laugh.</p>
+        <p>I'm convinced we met because the universe knew we needed someone equally weird to share our cat memes with.</p>
+        <p>Let's never be normal. Normal is boring. Where's the fun in that?</p>
+    </div>
+    <div class="back">
+        <img src="./1.jpg" alt="A funny picture of a cat wearing glasses, or a meme about cats and rain" />
+    </div>
+</div>
+
+<!-- Page 3 -->
+<div class="page">
+    <div class="front">
+        <h2>You're Like a Rare, Beautiful... Houseplant?</h2>
+        <p>...Okay, hear me out. You're low-maintenance (mostly), you thrive in indirect sunlight (like a good reading spot), and you make any room brighter.</p>
+        <p>Are you secretly a cat whisperer? Because you have that same mysterious, "I know things you don't" aura.</p>
+        <p>If you were a fictional character, you'd be the quirky detective who solves crimes with the help of her talking cat. And wears *amazing* glasses.</p>
+        <p>I'm not saying you're perfect, but you're pretty darn close. Close enough that I'm willing to share my emergency stash of cat treats with you.</p>
+        <p>You know, the sound of rain is almost as calming as listening to you talk about your favorite fictional characters. Almost.</p>
+    </div>
+    <div class="back">
+        <h2>Inner Strength: Would Probably Solve a Real Murder Mystery (With Her Cat)</h2>
+        <p>Okay, maybe you wouldn't *solve* it. But you'd definitely narrate the investigation like a true crime podcast. And your cat would be your co-host.</p>
+        <p>You're brave, you're smart, and you're not afraid to get a little muddy (as long as there's a cozy blanket and a cup of tea waiting for you afterward).</p>
+        <p>Seriously, your determination is inspiring. You're like a detective, a librarian, and a cat lady all rolled into one unstoppable force.</p>
+        <p>(And those glasses? Definitely hiding secret detective gadgets. I'm onto you...).</p>
+    </div>
+</div>
+
+<!-- Page 4 -->
+<div class="page">
+    <div class="front">
+        <h2>Talking to You is Better Than...</h2>
+        <p>...Finding a first edition of your favorite book. And *almost* as good as a perfectly brewed cup of tea on a rainy day.</p>
+        <p>Every time I get a notification from you, my brain releases a small army of happy little cats. They purr and do a little dance.</p>
+        <p>You make even the most mundane tasks feel like an adventure. "We need to buy cat food? Let's make it a quest!"</p>
+        <p>You laugh at my jokes, even the really bad ones. That's true friendship right there. (Or maybe you just have a really low bar for humor).</p>
+        <p>I'm so glad that I met you, my life is full of colors now.</p>
+    </div>
+    <div class="back">
+        <img src="./2.jpg" alt="A funny picture related to books, rain, or cats" />
+    </div>
+</div>
+
+<!-- Page 5 -->
+<div class="page">
+    <div class="front">
+        <h2>A Wish (And a Very Important Question About Cats)</h2>
+        <p>I wish we could hang out in person more. So we could, you know, have deep philosophical discussions about why cats are secretly plotting to take over the world.</p>
+        <p>Promise you won't replace me with a fictional detective, okay?  I'm much better at sharing memes. (And I come with fewer existential crises).</p>
+        <p>Seriously, you're stuck with me. Think of it as a lifetime subscription to cat puns and bad jokes. You can't unsubscribe.</p>
+        <p>I hope your life is filled with cozy rainy days, perfectly brewed tea, solved mysteries, and a cat who *doesn't* knock things off shelves. (Too much to ask?)</p>
+    </div>
+    <div class="back">
+        <h2>I'm Here, Even When I'm Covered in Cat Hair</h2>
+        <p>If you ever need anything, I'm here. Even if "anything" involves rescuing your cat from a tree. (I'm surprisingly good at climbing).</p>
+        <p>I might not always know what to say, but I'm a *fantastic* listener. And I give excellent moral support (to cats *and* humans).</p>
+        <p>Life's a mystery novel, and we're in it together. Let's try not to get murdered, okay?</p>
+        <p>You're an amazing friend. Don't forget it. And if you do, I'll remind you. With cat memes. Lots and lots of cat memes.</p>
+    </div>
+</div>
+
+<!-- Page 6 -->
+<div class="page">
+    <div class="front">
+        <h2>You're Awesome, Inside and Out (Especially Your Taste in Books)</h2>
+        <p>Okay, real talk. You're ridiculously cool.  It's almost unfair to the rest of us mere mortals.</p>
+        <p>Your glasses make you look like a super-intelligent librarian who moonlights as a cat whisperer .  (In the best possible way).</p>
+        <p>But it's not just your looks. You're also kind, hilarious, and have a brain full of fascinating facts about obscure murder weapons.</p>
+        <p>Basically, you're a unicorn wearing glasses and reading a murder mystery. And I'm completely glad to be your friend.</p>
+    </div>
+    <div class="back">
+        <h2>Seriously Cool (Like a First Edition, Found at a Yard Sale)</h2>
+        <p>I'm not usually this complimentary, but you make me want to write odes to your awesomeness. (They'd be terrible odes, but still).</p>
+        <p>You have this amazing aura. Like a warm, fuzzy blanket on a cold, rainy night. It's incredibly comforting.</p>
+        <p>I'm pretty sure you could solve any mystery, just by asking politely. (And maybe offering the culprit a cup of tea).</p>
+        <p>You're a fantastic friend. A quirky, cat-loving, rain-appreciating, mystery-solving, all-around awesome friend.</p>
+    </div>
+</div>
+
+<!-- Page 7 -->
+<div class="page">
+    <div class="front">
+        <h2>Thanks for Being You (It's a Full-Time Job, I Appreciate the Effort)</h2>
+        <p>I appreciate you. Really, truly. You're like a ray of sunshine on a cloudy day, except the sunshine is wearing glasses and carrying a cat.</p>
+        <p>You make me laugh, you make me think, and you make me want to learn more about the mating habits of obscure Amazonian tree frogs. (Okay, maybe that last one is just you).</p>
+        <p>Meeting you was like finding a four-leaf clover, a winning lottery ticket, and a perfectly ripe avocado all at the same time.</p>
+        <p>Thanks for tolerating my endless stream of cat pictures. I know it's a lot.</p>
+    </div>
+    <div class="back">
+        <h2>Friendship Goals: Unlocked!</h2>
+        <p>You're one of the best friends a person could ask for. Seriously.</p>
+        <p>You make everything more fun. Even waiting in line at the DMV. (Okay, maybe not the DMV. But *almost* everything).</p>
+        <p>Let's keep solving mysteries (fictional or otherwise), sharing cat memes, and being our delightfully weird selves together.</p>
+        <p>You're the best! Don't ever change.</p>
+    </div>
+</div>
+
+<!-- Page 8 -->
+<div class="page">
+    <div class="front">
+        <img src="./4.png" alt="A picture of a cat detective, a funny rainy-day scene, or something related to her favorite book/author" />
+    </div>
+    <div class="back cover">
+        <h3>The End (But Our Friendship Isn't!)</h3>
+        <p>Content: By [Your Name] (World's Most Awkward, But Well-Meaning Friend)</p>
+        <p>(P.S. Thanks for being my friend. My cat approves.)</p>
+    </div>
+</div>
+</div>
+    <div class="emoji">😹</div>
+    <div class="emoji">🤣</div>
+    <div class="emoji">📚</div>
+    <div class="emoji">🔍</div>
+    <div class="emoji">☔</div>
+    <div class="emoji">🐱</div>
+    <div class="emoji">👓</div>
+    <div class="emoji">🤪</div>
+    <div class="emoji">😂</div>
+    <div class="emoji">😉</div>
+    <div class="emoji">😎</div>
+    <div class="emoji">💯</div>
+    <div class="emoji">✨</div>
+
+<script>
+  const flipBook = (elBook) => {
+    elBook.style.setProperty("--c", 0); // Set current page
+    elBook.querySelectorAll(".page").forEach((page, idx) => {
+      page.style.setProperty("--i", idx);
+      page.addEventListener("click", (evt) => {
+        if (evt.target.closest("a")) return;
+        const curr = evt.target.closest(".back") ? idx : idx + 1;
+        elBook.style.setProperty("--c", curr);
+      });
+    });
+  };
+  
+  document.querySelectorAll(".book").forEach(flipBook);
+  
+</script>
+ 
+  </body>
+</html>

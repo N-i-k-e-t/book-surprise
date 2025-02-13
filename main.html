@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Book...</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #b2fab4, #69f0ae); /* Green gradient */
+            font-family: 'Poppins', sans-serif;
+            color: #333; /* Darker text */
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            padding: 20px;
+            border: 5px solid #388e3c; /* Darker green border */
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8); /* More opaque white */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            width: 90%; /* Responsive width */
+            max-width: 500px; /* Maximum width */
+        }
+
+        .loading-text {
+            font-size: 1.8em; /* Slightly smaller font */
+            font-weight: bold;
+            background: linear-gradient(135deg, #4CAF50, #388e3c); /* Green gradient */
+            padding: 12px 25px; /* Slightly smaller padding */
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .subtext {
+            font-size: 0.9em; /* Slightly smaller font */
+            margin-top: 10px;
+            color: #444; /* Slightly darker gray */
+        }
+
+        .progress-bar {
+            width: 80%; /* Responsive width */
+            max-width: 250px; /* Max width for progress bar */
+            height: 12px; /* Slightly thicker */
+            background: rgba(0, 0, 0, 0.1); /* Darker progress bar background */
+            border-radius: 50px;
+            overflow: hidden;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: #4CAF50; /* Green progress */
+            border-radius: 50px;
+            animation: load 3s ease-in-out forwards;
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /*  REMOVING THE HEART
+        .heart {
+            width: 80px;
+            height: 80px;
+            margin-top: 20px;
+            animation: heartbeat 1.5s infinite ease-in-out;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        */
+
+        .next-btn {
+            background: linear-gradient(135deg, #4CAF50, #388e3c);
+            border: none;
+            padding: 10px 20px; /* Slightly smaller padding */
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 15px; /* Slightly smaller margin */
+            width: 100%; /* Full width on small screens */
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(135deg, #388e3c, #4CAF50);
+            transform: scale(1.05); /* Slightly smaller scale */
+        }
+      /* Book emoji */
+      .book-emoji {
+          font-size: 4em; /* Adjust the size as needed */
+          margin-bottom: 10px; /* Space between emoji and text */
+      }
+    /* Falling emoji animation */
+        .emoji {
+            position: absolute;
+            font-size: 2em;
+            top: -50px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(100vh); }
+        }
+
+        /* Media Query for Larger Screens */
+        @media (min-width: 768px) {
+            .container {
+                padding: 30px; /* Restore original padding */
+            }
+
+            .loading-text {
+                font-size: 2em;
+                padding: 15px 30px;
+            }
+
+            .subtext {
+                font-size: 1em;
+            }
+
+            .next-btn {
+                padding: 12px 25px;
+                width: auto;  /*Let the button determine the size*/
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="book-emoji">📖</div>
+        <div class="loading-text">Loading Book...</div>
+        <div class="subtext">Just a moment...</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <button class="next-btn" onclick="window.location.href='book.html'">NEXT →</button>
+    </div>
+
+    <script>
+        function createEmoji() {
+            const emojiArray = ['😹', '🤣', '📚', '🔍', '☔', '🐱', '👓', '🤪', '😂', '😉', '😎', '💯', '✨'];
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji');
+            emoji.innerText = emojiArray[Math.floor(Math.random() * emojiArray.length)];
+            emoji.style.left = Math.random() * window.innerWidth + 'px';
+            emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 5000);
+        }
+
+        setInterval(createEmoji, 500);
+    </script>
+</body>
+</html>
